@@ -1,0 +1,7 @@
+{
+  "name": "CUMJUG - $cumjug",
+  "description": "The official CUMJUG memecoin website. It took 10 years to fill the jug, and now it's time for you to fill yours. Featuring an AI Meme Generator powered by Gemini.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

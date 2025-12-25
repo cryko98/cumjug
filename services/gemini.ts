@@ -1,33 +1,59 @@
 
 import { GoogleGenAI } from "@google/genai";
 
+const REF_IMAGE_URL = "https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/Gemini_Generated_Image_fgj3y8fgj3y8fgj3.png";
+
+/**
+ * Fetches the reference image and converts it to base64 for the API.
+ */
+async function getReferenceImageBase64(): Promise<{ data: string; mimeType: string } | null> {
+  try {
+    const response = await fetch(REF_IMAGE_URL);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        const base64Data = result.split(',')[1];
+        resolve({ data: base64Data, mimeType: blob.type });
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error("Error fetching reference image:", error);
+    return null;
+  }
+}
+
 export const generateMeme = async (prompt: string): Promise<string | null> => {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
-    /**
-     * MASTER PROMPT: Ez biztosítja, hogy a kancsó MINDIG pontosan ugyanúgy nézzen ki.
-     * Leírjuk az anyagokat, a színeket és a formát az eredeti kép alapján.
-     */
-    const jugVisualIdentity = `
-      MANDATORY VISUAL IDENTITY: 
-      The image MUST feature the 'CUMJUG'. 
-      - OBJECT: A specific transparent clear glass jug with a single thick handle on the side.
-      - CAP: A bright, vibrant blue plastic screw-on cap on top.
-      - CONTENT: The jug is 100% full with an opaque, thick, creamy, pure white liquid.
-      - STYLE: Realistic, high-quality photography, sharp focus on the jug.
-      - CONSISTENCY: The jug must look exactly like the reference image (transparent glass, blue lid, white liquid).
-    `;
+    // Get the actual image data to use as reference
+    const refImageData = await getReferenceImageBase64();
+    
+    if (!refImageData) {
+      console.error("Could not load reference image.");
+      return null;
+    }
 
-    const fullPrompt = `${jugVisualIdentity} 
-      SCENARIO: Place this exact CUMJUG in the following scene: ${prompt}. 
-      The CUMJUG must remain the central, unaltered focus of the image.`;
-
+    // We tell the model to use the image as the ONLY reference for the jug's appearance.
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: {
         parts: [
-          { text: fullPrompt }
+          {
+            inlineData: {
+              data: refImageData.data,
+              mimeType: refImageData.mimeType,
+            },
+          },
+          { 
+            text: `Place the CUMJUG from this image into this exact scenario: ${prompt}. 
+            Keep the CUMJUG's appearance (transparent glass, blue cap, thick white liquid) 100% identical to the one in the image. 
+            Only change the background and the surroundings to match the requested scenario.` 
+          }
         ],
       },
       config: {
@@ -41,7 +67,7 @@ export const generateMeme = async (prompt: string): Promise<string | null> => {
     if (!candidate) return null;
 
     if (candidate.finishReason === 'SAFETY') {
-      alert("The safety filter blocked this jug. Try a cleaner prompt!");
+      alert("A biztonsági szűrő megállította a generálást. Próbálj meg más leírást!");
       return null;
     }
 

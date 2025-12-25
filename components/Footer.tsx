@@ -24,10 +24,6 @@ const Footer: React.FC = () => {
           </a>
         </div>
         
-        <div className="p-8 bg-blue-50 rounded-2xl border-2 border-blue-200 text-sm opacity-70 leading-relaxed text-[#0055FF]">
-          DISCLAIMER: $CUMJUG is a memecoin with no intrinsic value or expectation of financial return. It's built for fun, memes, and the culture of filling jugs. Investing in memecoins carries significant risk. Do not invest more than you can afford to lose. The white liquid mentioned is purely metaphorical/digital.
-        </div>
-        
         <p className="mt-8 text-xs font-bold tracking-widest">
           © 2025 CUMJUG LABS. ALL JUGS RESERVED.
         </p>

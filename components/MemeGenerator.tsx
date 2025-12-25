@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { generateMeme } from '../services/gemini';
 
-const REF_IMAGE = "https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/Gemini_Generated_Image_fgj3y8fgj3y8fgj3.png";
+const REF_IMAGE = "https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/logo%20-%202025-12-25T190013.020.png";
 
 const PRESETS = [
   "The CUMJUG being carried by a giant eagle over a futuristic city",
@@ -36,6 +36,16 @@ const MemeGenerator: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const downloadImage = () => {
+    if (!result) return;
+    const link = document.createElement('a');
+    link.href = result;
+    link.download = `cumjug-meme-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -113,6 +123,14 @@ const MemeGenerator: React.FC = () => {
                        <img src={REF_IMAGE} className="w-3 h-3 rounded-full" />
                        VERIFIED CUMJUG DESIGN
                     </div>
+                    {/* Download Button Overlay */}
+                    <button 
+                      onClick={downloadImage}
+                      className="absolute top-4 right-4 bg-[#0055FF] text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-lg active:scale-95 z-20"
+                      title="Download Image"
+                    >
+                      <i className="fa-solid fa-download text-xl"></i>
+                    </button>
                   </div>
                 ) : (
                   <div className="text-center p-8 opacity-40 group-hover:opacity-100 transition-opacity">
@@ -135,6 +153,17 @@ const MemeGenerator: React.FC = () => {
                   </div>
                 )}
               </div>
+              {result && (
+                <div className="mt-4 flex justify-center">
+                  <button 
+                    onClick={downloadImage}
+                    className="flex items-center gap-2 font-bold text-[#0055FF] hover:underline"
+                  >
+                    <i className="fa-solid fa-cloud-arrow-down"></i>
+                    DOWNLOAD THIS MASTERPIECE
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const REF_IMAGE_URL = "https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/Gemini_Generated_Image_fgj3y8fgj3y8fgj3.png";
+const REF_IMAGE_URL = "https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/logo%20-%202025-12-25T190013.020.png";
 
 /**
  * Fetches the reference image and converts it to base64 for the API.

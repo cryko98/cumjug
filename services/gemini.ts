@@ -1,18 +1,28 @@
 
 /**
- * Generates a meme image URL using Pollinations.ai (API-free).
+ * Generates a meme image URL using Puter.js (js.puter.com).
  * We append the brand description to ensure the jug remains consistent.
  */
 export const generateMemeImage = async (
   userPrompt: string
 ): Promise<string> => {
-  const brandDescription = "A clear 5-gallon water cooler jug with blue handle and blue cap, filled with thick white liquid, realistic, cinematic lighting, 8k, professional photography.";
+  const brandDescription = "A clear 5-gallon water cooler jug with a blue handle and blue cap, filled with thick white liquid, realistic, cinematic lighting, 8k, professional photography, high resolution.";
   const fullPrompt = `${userPrompt}, featuring ${brandDescription}`;
-  const encodedPrompt = encodeURIComponent(fullPrompt);
   
-  // Use the requested pollinations link format
-  const seed = Math.floor(Math.random() * 1000000);
-  return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${seed}`;
+  // Check if Puter is available on the window object
+  const puter = (window as any).puter;
+  if (!puter) {
+    throw new Error("Puter SDK not loaded correctly.");
+  }
+
+  try {
+    // puter.ai.txt2img returns an HTMLImageElement
+    const imgElement = await puter.ai.txt2img(fullPrompt);
+    return imgElement.src;
+  } catch (error) {
+    console.error("Puter generation error:", error);
+    throw new Error("The jug generation failed. Please try again.");
+  }
 };
 
 export const randomMemePrompts = [

@@ -17,7 +17,7 @@ const MemeGenerator: React.FC = () => {
     setError(null);
     
     try {
-      // This returns the Pollinations link
+      // This uses the Puter.js SDK
       const url = await generateMemeImage(activePrompt);
       
       // Wait for the image to actually load in the browser for better UX
@@ -34,7 +34,7 @@ const MemeGenerator: React.FC = () => {
         setIsGenerating(false);
       };
     } catch (err: any) {
-      setError("An error occurred while generating the JUG.");
+      setError("An error occurred while generating the JUG. Please check if Puter.js is loaded.");
       setIsGenerating(false);
     }
   };
@@ -44,7 +44,7 @@ const MemeGenerator: React.FC = () => {
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-6xl md:text-8xl font-bangers mb-6 text-blue-600 tracking-wide uppercase">The Filling Station</h2>
-          <p className="text-blue-800/60 text-xs font-black uppercase tracking-[0.5em]">Powered by Pollinations • No API Key Required</p>
+          <p className="text-blue-800/60 text-xs font-black uppercase tracking-[0.5em]">Powered by Puter.js • No API Key Required</p>
         </div>
 
         <div className="glass-card p-8 md:p-12 rounded-[3rem] border border-blue-600/20 shadow-xl mb-12 bg-white">

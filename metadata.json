@@ -1,7 +1,5 @@
 {
   "name": "CUMJUG - $cumjug",
-  "description": "The official CUMJUG memecoin website. It took 10 years to fill the jug, and now it's time for you to fill yours. Featuring an AI Meme Generator powered by Gemini.",
-  "requestFramePermissions": [
-    "camera"
-  ]
+  "description": "The ultimate memecoin project centered around the legendary 10-year journey of filling the jug. Generate your own CUMJUG memes and join the community.",
+  "requestFramePermissions": []
 }

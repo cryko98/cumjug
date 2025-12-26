@@ -3,59 +3,40 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-24">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="order-2 md:order-1">
-          <h2 className="font-heading text-5xl mb-6">LORE OF THE JUG</h2>
-          <div className="space-y-6 text-lg md:text-xl leading-relaxed">
-            <p className="p-6 slime-blob rounded-3xl">
-              It took <span className="font-bold underline">10 long years</span> of unyielding focus, persistence, and pure stamina... but we finally did it. 
-              We successfully filled the jug with <span className="font-bold italic">cum</span>. 
-              It’s white, it’s thick, and it’s overflowing with potential.
-            </p>
+    <section id="about" className="py-24 px-6 relative">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 className="text-5xl md:text-7xl font-bangers mb-8 text-blue-600">THE 10 YEAR JOURNEY</h2>
+          <div className="space-y-6 text-lg text-blue-800/90 leading-relaxed font-medium">
             <p>
-              Now, we invite you to join the movement. Don't just watch from the sidelines. 
-              Grab your own jug. Fill it. Honor the legacy of $CUMJUG.
+              It took <span className="text-blue-700 font-black">10 years</span> of dedication, focus, and unwavering community spirit, but we finally did it. We have successfully <span className="text-blue-700 font-black">filled the jug</span> with the pure, white, slimy essence of the internet.
             </p>
-            <div className="flex gap-4">
-              <span className="bg-[#0055FF] text-white px-4 py-2 rounded-lg font-bold">STAMINA: 100/100</span>
-              <span className="bg-[#0055FF] text-white px-4 py-2 rounded-lg font-bold">VISCOSITY: PEAK</span>
-            </div>
+            <p className="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-600 italic text-blue-800 font-bold">
+              "We didn't choose the jug life, the jug life chose us. One drop at a time, we built an empire. Now the jug is overflowing, and the world must know the power of $CUMJUG."
+            </p>
           </div>
         </div>
-        
-        <div className="order-1 md:order-2">
-          {/* Mockup of a Twitter Embed since actual SDK needs external scripts loaded properly */}
-          <div className="bg-[#f7f9f9] border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <img src="https://pbs.twimg.com/profile_images/2003851751129038848/mwq0fRWc_400x400.jpg" className="w-12 h-12 rounded-full" alt="profile"/>
+
+        <div className="glass-card p-6 rounded-[2rem] border border-blue-600/20 shadow-xl bg-white">
+          <div className="text-blue-700 font-black mb-4 uppercase tracking-widest text-xs flex items-center gap-2">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+            LATEST FROM X
+          </div>
+          <div className="rounded-xl overflow-hidden bg-blue-50/50 border border-blue-100 p-8 text-left italic">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-full bg-blue-100 overflow-hidden border border-blue-200">
+                <img src="https://pbs.twimg.com/profile_images/2003851751129038848/mwq0fRWc_400x400.jpg" alt="user" />
+              </div>
               <div>
-                <div className="font-bold">CUMJUG @ SOLANA</div>
-                <div className="text-gray-500 text-sm">@cumjugonsol</div>
-              </div>
-              <div className="ml-auto text-[#0055FF]">
-                <i className="fa-brands fa-x-twitter text-xl"></i>
+                <div className="font-black text-blue-800 text-sm">CUMJUG @cumjugonsol</div>
+                <div className="text-xs text-blue-700/60 font-bold">2h ago</div>
               </div>
             </div>
-            <p className="text-lg mb-4">
-              The jug is finally full. 10 years in the making. 🥛💎 <br/><br/>
-              Join the $CUMJUG revolution. The thickest liquidity on Solana.
-            </p>
-            <img 
-              src="https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/Gemini_Generated_Image_fgj3y8fgj3y8fgj3.png" 
-              className="rounded-xl w-full border border-gray-200 mb-4" 
-              alt="The Full Jug"
-            />
-            <div className="flex justify-between text-gray-500">
-              <span><i className="fa-regular fa-comment mr-2"></i> 420</span>
-              <span><i className="fa-solid fa-retweet mr-2"></i> 69</span>
-              <span><i className="fa-regular fa-heart mr-2 text-red-500"></i> 1.2k</span>
-              <span><i className="fa-solid fa-chart-simple mr-2"></i> 50k</span>
-            </div>
+            <p className="text-blue-900 text-sm mb-4 font-bold not-italic leading-relaxed">The jug is finally 100% full. The wait is over. $CUMJUG is ready to take over Solana. 🥛💎</p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

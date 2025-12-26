@@ -10,7 +10,7 @@ export const generateMemeImage = async (
   const fullPrompt = `${userPrompt}, featuring ${brandDescription}`;
   const encodedPrompt = encodeURIComponent(fullPrompt);
   
-  // A kért pollinations link formátum használata
+  // Use the requested pollinations link format
   const seed = Math.floor(Math.random() * 1000000);
   return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${seed}`;
 };

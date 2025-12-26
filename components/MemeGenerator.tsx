@@ -17,10 +17,10 @@ const MemeGenerator: React.FC = () => {
     setError(null);
     
     try {
-      // Ez már a Pollinations linket adja vissza
+      // This returns the Pollinations link
       const url = await generateMemeImage(activePrompt);
       
-      // Megvárjuk, amíg a kép ténylegesen letöltődik a böngészőbe a jobb UX érdekében
+      // Wait for the image to actually load in the browser for better UX
       const img = new Image();
       img.src = url;
       img.onload = () => {
@@ -30,11 +30,11 @@ const MemeGenerator: React.FC = () => {
         setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth' }), 300);
       };
       img.onerror = () => {
-        setError("A generáló szerver nem válaszol. Próbáld újra!");
+        setError("The generation server is not responding. Please try again!");
         setIsGenerating(false);
       };
     } catch (err: any) {
-      setError("Hiba történt a JUG generálása közben.");
+      setError("An error occurred while generating the JUG.");
       setIsGenerating(false);
     }
   };
@@ -51,7 +51,7 @@ const MemeGenerator: React.FC = () => {
           <textarea 
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Írd le a jelenetet a CUMJUG-gal... (pl. 'Elon Musk holds the jug on Mars')"
+            placeholder="Describe the scene with the CUMJUG... (e.g. 'Elon Musk holds the jug on Mars')"
             className="w-full bg-white border border-blue-200 rounded-2xl p-6 text-blue-800 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500/30 min-h-[140px] resize-none mb-6 shadow-inner font-medium"
           />
           <div className="flex justify-end items-center gap-4">

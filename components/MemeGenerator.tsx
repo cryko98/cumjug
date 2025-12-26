@@ -17,10 +17,10 @@ const MemeGenerator: React.FC = () => {
     setError(null);
     
     try {
+      // Ez már a Pollinations linket adja vissza
       const url = await generateMemeImage(activePrompt);
       
-      // Since Pollinations returns a URL immediately, we wait for the image to actually "load" 
-      // to provide a better UX than a broken image icon.
+      // Megvárjuk, amíg a kép ténylegesen letöltődik a böngészőbe a jobb UX érdekében
       const img = new Image();
       img.src = url;
       img.onload = () => {
@@ -30,10 +30,11 @@ const MemeGenerator: React.FC = () => {
         setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth' }), 300);
       };
       img.onerror = () => {
-        throw new Error("Failed to load image from provider.");
+        setError("A generáló szerver nem válaszol. Próbáld újra!");
+        setIsGenerating(false);
       };
     } catch (err: any) {
-      setError(err.message || "The jug machine is jammed. Try again.");
+      setError("Hiba történt a JUG generálása közben.");
       setIsGenerating(false);
     }
   };
@@ -42,16 +43,16 @@ const MemeGenerator: React.FC = () => {
     <section id="meme-gen" className="py-24 px-6 relative bg-white overflow-hidden">
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-6xl md:text-8xl font-bangers mb-6 text-blue-600 tracking-wide">THE FILLING STATION</h2>
-          <p className="text-blue-800/60 text-xs font-black uppercase tracking-[0.5em]">Powered by Pollinations • Instant Manifestation</p>
+          <h2 className="text-6xl md:text-8xl font-bangers mb-6 text-blue-600 tracking-wide uppercase">The Filling Station</h2>
+          <p className="text-blue-800/60 text-xs font-black uppercase tracking-[0.5em]">Powered by Pollinations • No API Key Required</p>
         </div>
 
         <div className="glass-card p-8 md:p-12 rounded-[3rem] border border-blue-600/20 shadow-xl mb-12 bg-white">
           <textarea 
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Describe a scene featuring the jug (e.g., 'A robot protecting the jug in a futuristic city')..."
-            className="w-full bg-white border border-blue-200 rounded-2xl p-6 text-blue-800 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500/30 min-h-[140px] resize-none mb-6 shadow-inner font-medium placeholder:text-blue-200"
+            placeholder="Írd le a jelenetet a CUMJUG-gal... (pl. 'Elon Musk holds the jug on Mars')"
+            className="w-full bg-white border border-blue-200 rounded-2xl p-6 text-blue-800 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500/30 min-h-[140px] resize-none mb-6 shadow-inner font-medium"
           />
           <div className="flex justify-end items-center gap-4">
             <button 
@@ -86,15 +87,16 @@ const MemeGenerator: React.FC = () => {
               </div>
               <div className="p-8 text-center">
                 <p className="font-bold italic text-blue-900 mb-4">"{currentMeme.prompt}"</p>
-                <a 
-                  href={currentMeme.url} 
-                  download={`cumjug-${currentMeme.timestamp}.jpg`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-[10px] font-black uppercase tracking-widest text-blue-600 border-b-2 border-blue-600/20 hover:border-blue-600 transition-all"
-                >
-                  Download HD Image
-                </a>
+                <div className="flex justify-center gap-4">
+                  <a 
+                    href={currentMeme.url} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-[10px] font-black uppercase tracking-widest text-blue-600 border-b-2 border-blue-600/20 hover:border-blue-600 transition-all"
+                  >
+                    Open Original
+                  </a>
+                </div>
               </div>
             </div>
           )}
